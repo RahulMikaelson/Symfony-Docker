@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  application:
+    build:
+      context: 'Docker/Php'
+    container_name: php-application
+    volumes:
+      - './Application:/srv'
+    expose:
+      - 9000
+  nginx:
+    build:
+      context: 'Docker/Nginx'
+    container_name: php-nginx
+    volumes:
+      - './Docker/Nginx/conf.d:/etc/nginx/conf.d'
+      - './Application:/srv'
+    ports:
+      - '80:80'
+
