@@ -6,8 +6,7 @@ services:
     container_name: php-application
     volumes:
       - './Application:/srv'
-    expose:
-      - 9000
+      - './Docker/Php/php.ini:/usr/local/etc/php/conf.d/php.ini'
   nginx:
     build:
       context: 'Docker/Nginx'
@@ -17,4 +16,16 @@ services:
       - './Application:/srv'
     ports:
       - '80:80'
-
+      - '443:443'
+  database:
+    build:
+      context: 'Docker/Mongo'
+    container_name: php-database
+    volumes:
+      - 'symfony-db:/data/db'
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_DATABASE: ${DATABASE}
+volumes:
+  symfony-db:
