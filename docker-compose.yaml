@@ -6,7 +6,6 @@ services:
     container_name: php-application
     volumes:
       - './Application:/srv'
-      - './Docker/Php/php.ini:/usr/local/etc/php/conf.d/php.ini'
   nginx:
     build:
       context: 'Docker/Nginx'
